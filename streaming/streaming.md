@@ -318,3 +318,81 @@ public class StreamBuilders {
     noneMatch()
     findFirst()
     findAny()
+
+
+### Sort stream on multiple fields
+Java 8 example to sort stream of objects by multiple fields using comparators and Comparator.thenComparing() method. This method returns a lexicographic-order comparator with another comparator. It gives the same effect as SQL group by clause.
+
+
+#### Create comparators for multiple fields
+To sort on multiple fields, we must first create comparator for each field on which we want to sort the stream. Then chain each comparator in desired order to give group by effect on complete sorting.
+
+```
+//first name comparator
+Comparator<Employee> compareByFirstName = Comparator.comparing( Employee::getFirstName );
+ 
+//last name comparator
+Comparator<Employee> compareByLastName = Comparator.comparing( Employee::getLastName );
+ 
+//Compare by first name and then last name (multiple fields)
+Comparator<Employee> compareByFullName = compareByFirstName.thenComparing(compareByLastName);
+ 
+//Using Comparator - pseudo code
+list.stream().sorted( comparator ).collect();
+
+```
+
+#### Java stream sort on multiple fields – example
+Example of using thenComparing() to create Comparator which is capable of sorting by multiple fields.
+
+
+```
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+ 
+public class Main
+{
+    public static void main(String[] args)
+    {
+        ArrayList<Employee> employees = getUnsortedEmployeeList();
+         
+        //Compare by first name and then last name
+        Comparator<Employee> compareByName = Comparator
+                                                .comparing(Employee::getFirstName)
+                                                .thenComparing(Employee::getLastName);
+         
+        List<Employee> sortedEmployees = employees.stream()
+                                        .sorted(compareByName)
+                                        .collect(Collectors.toList());
+        
+        System.out.println(sortedEmployees);
+    }
+ 
+    private static ArrayList<Employee> getUnsortedEmployeeList()
+    {
+        ArrayList<Employee> list = new ArrayList<>();
+        list.add( new Employee(2l, "Lokesh", "Gupta") );
+        list.add( new Employee(1l, "Alex", "Gussin") );
+        list.add( new Employee(4l, "Brian", "Sux") );
+        list.add( new Employee(5l, "Neon", "Piper") );
+        list.add( new Employee(3l, "David", "Beckham") );
+        list.add( new Employee(7l, "Alex", "Beckham") );
+        list.add( new Employee(6l, "Brian", "Suxena") );
+        return list;
+    }
+}
+
+
+[
+    E [id=7, firstName=Alex,    lastName=Beckham],
+    E [id=1, firstName=Alex,    lastName=Gussin],
+    E [id=4, firstName=Brian,   lastName=Sux],
+    E [id=6, firstName=Brian,   lastName=Suxena],
+    E [id=3, firstName=David,   lastName=Beckham],
+    E [id=2, firstName=Lokesh,  lastName=Gupta],
+    E [id=5, firstName=Neon,    lastName=Piper]
+]
+
+```
