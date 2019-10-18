@@ -53,11 +53,102 @@ sequrity testing.
 quorum :
 setuju ada standarisasi. 
 
+mas opi:
+managing people, with limited resource. 
+testing dulu, baru coding. 
 
+environment beda2. sehingga pada saat test di uat berhasil, pada saat di production gagal. 
+workaround solution.
+caos engineering. 
+
+iats
+
+cicd test painttest
 
 sesi diskusi:
 1. apa sih yang mesti kita test
 2. x factor apa yang harus di test 
+
+
+============
+
+- api test :
+    > validasi api 
+    case nya len param, format, type dari request param. misal mandatory or optional. 
+    > functionalitas
+
+    > make sure ke db
+
+    > dependency existing products
+
+    > end to end sekenario test same flow. 
+
+    > log monitoring 
+
+============
+
+
+
+
+tim jaya:
+- param validation
+- negative test
+- kita gak tau apa yang terjadi
+- db koneksi
+- app koneksi, time out, 
+- http vaidation
+- konketen response
+- performance test
+- load test
+
+
+tim dwike:
+- function vs opration
+
+
+tim grace:
+- integration testing
+
+tim mas arif:
+- regrestion
+- stress test
+- performance test
+- functional
+- production
+- rollback test
+- ab testing
+- uat
+
+
+
+
+simpulan:
+- param validation [1]
+- app connection [5]
+- http validation [3]
+- content body [4]
+- performance test [10]
+- integration test [8]
+- regretssion test [7]
+- production test [] - ressilian test
+- rollback test
+- security test [9]
+- functional test <+/-> [2]
+- file validation < metadata, size, properties >
+- db connection [6]
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
